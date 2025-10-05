@@ -1,11 +1,13 @@
 import React from 'react'
-import header from '../components/header'
-const home = () => {
+import Header from '../components/Header'
+import ExploreMenu from '../components/ExploreMenu';
+const Home = () => {
   return (
     <div>
-      <header/>
+      <Header/>
+      <ExploreMenu/>
     </div>
   )
 }
 
-export default home
+export default Home;
