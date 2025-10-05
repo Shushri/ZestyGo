@@ -1,46 +1,71 @@
-import React from 'react';
-import { menu_list } from '../assets/assets';
+import React from "react";
+import { menu_list } from "../assets/assets";
 
-const ExploreMenu = () => {
+const ExploreMenu = ({ category, setCategory }) => {
   return (
     <div className="px-[6vw] py-[4vw] text-center">
-      {/* Section Heading */}
+      {/* 🔹 Heading */}
       <h1 className="text-[3vw] font-extrabold text-[#2c2c2c] mb-2">
         Explore Our <span className="text-[tomato]">Menu</span>
       </h1>
-
-      {/* Underline Accent */}
       <div className="w-[80px] h-[4px] bg-[tomato] mx-auto mb-6 rounded-full"></div>
 
-      {/* Section Subtext */}
-      <p className="text-[#555] text-[1.1vw] leading-relaxed max-w-[800px] mx-auto mb-10">
-        Craving something delicious? Browse our menu packed with handcrafted dishes made from the freshest ingredients.
-        From comforting classics to global flavors — we bring every bite hot, fresh, and full of flavor right to your table.
+      {/* 🔹 Subtext */}
+      <p className="text-[#555] text-[1.1vw] leading-relaxed max-w-[800px] mx-auto mb-8">
+        Discover a variety of delicious categories crafted with passion. From
+        crispy snacks to comforting meals — pick your favorite and start
+        ordering now!
       </p>
 
-      {/* Menu Items Grid */}
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-8">
-        {menu_list.map((item, index) => (
-          <div
-            key={index}
-            className="group relative flex flex-col items-center bg-white shadow-md rounded-2xl p-4 hover:shadow-xl hover:-translate-y-2 transition-all duration-300 cursor-pointer"
-          >
-            <div className="w-[120px] h-[120px] overflow-hidden rounded-full mb-3">
-              <img
-                src={item.menu_image}
-                alt={item.menu_name}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              />
+      {/* 🔹 Scrollable Category Bar */}
+      <div className="flex gap-6 overflow-x-auto scroll-smooth py-4 px-2 no-scrollbar">
+        {menu_list.map((item, index) => {
+          const isActive = category === item.menu_name;
+          return (
+            <div
+              key={index}
+              onClick={() =>
+                setCategory((prev) =>
+                  prev === item.menu_name ? "All" : item.menu_name
+                )
+              }
+              className={`flex flex-col items-center min-w-[120px] cursor-pointer 
+                          transition-all duration-300 hover:scale-105`}
+            >
+              {/* Category Image */}
+              <div
+                className={`w-[100px] h-[100px] rounded-full overflow-hidden shadow-md border-2 
+                            ${
+                              isActive
+                                ? "border-[tomato] scale-105"
+                                : "border-gray-200 hover:border-[tomato]"
+                            } transition-all`}
+              >
+                <img
+                  src={item.menu_image}
+                  alt={item.menu_name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Category Name */}
+              <p
+                className={`mt-3 text-[1vw] font-semibold transition-colors 
+                            ${
+                              isActive
+                                ? "text-[tomato]"
+                                : "text-[#333] hover:text-[tomato]"
+                            }`}
+              >
+                {item.menu_name}
+              </p>
             </div>
-
-            <p className="text-[1.2vw] font-semibold text-[#333] group-hover:text-[tomato] transition-colors duration-300">
-              {item.menu_name}
-            </p>
-
-            <span className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl"></span>
-          </div>
-        ))}
+          );
+        })}
       </div>
+
+      {/* 🔹 Divider */}
+      <hr className="h-[2px] mx-[10px] my-[0px] bg-[#e2e2e2] border-none" />
     </div>
   );
 };

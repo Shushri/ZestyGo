@@ -2,21 +2,64 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 🌍 Global Reset & Defaults */
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
+/* 🧱 Body Styling */
 body {
-    min-height: 100vh;
+  min-height: 100vh;
+  font-family: 'Inter', 'Poppins', sans-serif;
+  background-color: #fafafa;
+  color: #2c2c2c;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
 }
 
+/* 🧭 Link Styling */
 a {
-    text-decoration: none;
-    color: inherit ;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.3s ease;
 }
-.app{
-    width: 80%;
-    margin: auto;
+
+a:hover {
+  color: tomato;
+}
+
+/* 🧩 App Container */
+.app {
+  width: 85%;
+  max-width: 1300px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+/* 🎡 Hide scrollbar but allow scroll */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+/* ✨ Optional (nice scroll feel when visible elsewhere) */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #aaa;
 }
