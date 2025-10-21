@@ -1,15 +1,9 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [menu, setMenu] = useState("home");
-
-  const navItems = [
-    { id: "home", label: "Home" },
-    { id: "menu", label: "Menu" },
-    { id: "mobile-app", label: "Mobile App" },
-    { id: "contact-us", label: "Contact Us" },
-  ];
 
   return (
     <nav className="px-10 py-6 flex justify-between items-center shadow-sm bg-white">
@@ -18,20 +12,50 @@ const Navbar = () => {
 
       {/* Menu Links */}
       <ul className="flex gap-8 list-none text-[#49557e] text-[18px]">
-        {navItems.map((item) => (
-          <li
-            key={item.id}
-            onClick={() => setMenu(item.id)}
-            className={`cursor-pointer transition duration-300 
-              ${
-                menu === item.id
-                  ? "underline underline-offset-4 decoration-[tomato] font-semibold"
-                  : "hover:underline hover:decoration-[tomato]"
-              }`}
-          >
-            {item.label}
-          </li>
-        ))}
+        <Link
+          
+          onClick={() => setMenu("home")}
+          className={`cursor-pointer transition duration-300 ${
+            menu === "home"
+              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
+              : "hover:underline hover:decoration-[tomato]"
+          }`}
+        >
+          Home
+        </Link>
+
+        <a href="#explere-menu"
+          onClick={() => setMenu("menu")}
+          className={`cursor-pointer transition duration-300 ${
+            menu === "menu"
+              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
+              : "hover:underline hover:decoration-[tomato]"
+          }`}
+        >
+          Menu
+        </a>
+
+        <a href="#App-download"
+          onClick={() => setMenu("mobile-app")}
+          className={`cursor-pointer transition duration-300 ${
+            menu === "mobile-app"
+              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
+              : "hover:underline hover:decoration-[tomato]"
+          }`}
+        >
+          Mobile App
+        </a>
+
+        <a href="#Footer"
+          onClick={() => setMenu("contact-us")}
+          className={`cursor-pointer transition duration-300 ${
+            menu === "contact-us"
+              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
+              : "hover:underline hover:decoration-[tomato]"
+          }`}
+        >
+          Contact Us
+        </a>
       </ul>
 
       {/* Right Section */}

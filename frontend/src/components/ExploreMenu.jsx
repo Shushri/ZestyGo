@@ -3,7 +3,7 @@ import { menu_list } from "../assets/assets";
 
 const ExploreMenu = ({ category, setCategory }) => {
   return (
-    <div className="px-[6vw] py-[4vw] text-center">
+    <div className="px-[6vw] py-[4vw] text-center" id="explere-menu">
       {/* 🔹 Heading */}
       <h1 className="text-[3vw] font-extrabold text-[#2c2c2c] mb-2">
         Explore Our <span className="text-[tomato]">Menu</span>

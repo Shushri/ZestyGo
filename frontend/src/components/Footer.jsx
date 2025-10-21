@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const Footer = () => {
   return (
-    <footer className="bg-black text-white px-[8vw] py-[5vw] mt-[5vw] border-t border-gray-800">
+    <footer className="bg-black text-white px-[8vw] py-[5vw] mt-[5vw] border-t border-gray-800" id="Footer">
       <div className="grid md:grid-cols-4 sm:grid-cols-2 grid-cols-1 gap-10">
         
         {/* 1️⃣ Brand Section */}
