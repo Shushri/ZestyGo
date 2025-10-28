@@ -10,13 +10,15 @@ const port=4000;
 //DB config
 connectDB()
 
+//middlewares
+app.use(express.json());
+app.use(cors());
+
+
 //api endpoints
 app.use('/api/food',foodRouter);
 app.use('/images',express.static('uploads'))
 
-//middlewares
-app.use(express.json());
-app.use(cors());
 
 app.get('/',(req,res)=>{
     res.status(200).send("Hello World");
