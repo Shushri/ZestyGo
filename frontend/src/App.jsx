@@ -6,6 +6,7 @@ import Cart from "./pages/Cart";
 import PlaceOrder from "./pages/PlaceOrder";
 import Footer from "./components/Footer";
 import LoginPopUp from "./components/LoginPopUp"; // ✅ Import this if you’re using it
+import ScrollToTop from "./components/ScrollToTop";
 
 const App = () => {
   // ✅ useState must be declared *inside* the component and wrapped in const
@@ -28,6 +29,7 @@ const App = () => {
       </div>
 
       <Footer />
+      <ScrollToTop />
     </>
   );
 };
