@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
-import { useEffect } from "react";
+import { toast } from "react-toastify";
+
 
 const Add = () => {
   const [image, setImage] = useState(false);
@@ -16,15 +17,41 @@ const Add = () => {
         setdata((data)=>({...data,[name]:value}))
     }
 
-    useEffect(()=>{
-        console.log("item added")
-        ,[data]
-    })
+   
+    const url="http://localhost:4000"
+    const OnSubmitHandler = async (e) => {
+        e.preventDefault();
+        const formData=new FormData();
+        formData.append("name",data.name);
+        formData.append("description",data.description);
+        formData.append("price",Number(data.price));
+        formData.append("category",data.category);
+        formData.append("image",image);
+        const response = await axios.post(`${url}/api/food/add`,formData);
+        if(response.data.success){
+          setdata(
+            {
+              name:"",
+              description:"",
+              category:"Salad",
+              price:""
+
+            }
+          );
+          setImage(false);
+          toast.success(response.data.message);
+        }
+        else{
+          toast.error(response.data.message);
+        }
+
+    }
+
   return (
     <div className="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow">
       <h2 className="text-xl font-semibold mb-6">Add New Product</h2>
 
-      <form className="space-y-6">
+      <form className="space-y-6" onSubmit={OnSubmitHandler}>
         {/* IMAGE UPLOAD */}
         <div>
           <p className="font-medium mb-2">Upload Image</p>
