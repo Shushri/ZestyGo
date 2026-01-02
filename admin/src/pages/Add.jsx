@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 import { toast } from "react-toastify";
 import axios from 'axios';
 
-const Add = () => {
+const Add = ({url}) => {
   const [image, setImage] = useState(false);
   const [data, setdata] = useState(
     {name:"",
@@ -18,7 +18,7 @@ const Add = () => {
     }
 
    
-    const url="http://localhost:4000"
+    
     const OnSubmitHandler = async (e) => {
         e.preventDefault();
         const formData=new FormData();
