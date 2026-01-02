@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets";
 import { toast } from "react-toastify";
-
+import axios from 'axios';
 
 const Add = () => {
   const [image, setImage] = useState(false);
