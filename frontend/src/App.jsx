@@ -1,37 +1,41 @@
-import React, { useState } from "react";
-import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import PlaceOrder from "./pages/PlaceOrder";
-import Footer from "./components/Footer";
-import LoginPopUp from "./components/LoginPopUp"; // ✅ Import this if you’re using it
-import ScrollToTop from "./components/ScrollToTop";
+import React, { useState } from "react";                     // React and state hook
+import { Routes, Route } from "react-router-dom";            // Routing components
+import Navbar from "./components/Navbar";                    // Top navigation bar
+import Home from "./pages/Home";                              // Home page
+import Cart from "./pages/Cart";                              // Cart page
+import PlaceOrder from "./pages/PlaceOrder";                  // Order placement page
+import Footer from "./components/Footer";                     // Footer component
+import LoginPopUp from "./components/LoginPopUp";             // Login modal component
+import ScrollToTop from "./components/ScrollToTop";           // Scrolls page to top on route change
 
 const App = () => {
-  // ✅ useState must be declared *inside* the component and wrapped in const
+  // Controls visibility of login popup
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <>  
-      {/* Conditional rendering of LoginPopUp */}
+    <>
+      {/* Show login popup only when showLogin is true */}
       {showLogin && <LoginPopUp setShowLogin={setShowLogin} />}
 
       <div className="App">
-        {/* Pass state setter to Navbar */}
+        {/* Navbar can open login popup using setShowLogin */}
         <Navbar setShowLogin={setShowLogin} />
-        
+
+        {/* Define application routes */}
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/order" element={<PlaceOrder />} />
+          <Route path="/" element={<Home />} />                {/* Home route */}
+          <Route path="/cart" element={<Cart />} />            {/* Cart route */}
+          <Route path="/order" element={<PlaceOrder />} />     {/* Order route */}
         </Routes>
       </div>
 
+      {/* Common footer across all pages */}
       <Footer />
+
+      {/* Ensures page starts from top on navigation */}
       <ScrollToTop />
     </>
   );
 };
 
-export default App;
+export default App;                                          // Export main App component

@@ -1,8 +1,53 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
+import { StoreContext } from "../context/StoreContext";
+import axios from "axios"
 
 const LoginPopUp = ({ setShowLogin }) => {
+  const {url,token,setToken} = useContext(StoreContext)
   const [currState, setCurrState] = useState("login"); // 'login' or 'signup'
+  const [data,setData] = useState(
+    {
+      name:"",
+      email:"",
+      password:""
+    }
+  )
+ const onChangeHandler = (event) => {
+  const name = event.target.name;   // Get input field name
+  const value = event.target.value; // Get input field value
+  setData(data => ({ ...data, [name]: value })); // Update state dynamically
+};
+
+const onLogin = async (event) => {
+    event.preventDefault();
+    let newUrl=url;
+    if (currState==="login"){
+      newUrl+="/api/user/login";
+    }
+    else{
+      newUrl+="/api/user/register"
+    }
+
+    const response = await axios.post(newUrl,data);
+
+    if(response.data.success){
+      setToken(response.data.token);
+      localStorage.setItem("token",response.data.token);
+      setShowLogin(false)
+
+    }
+    else{
+      alert(response.data.message)
+    }
+}
+
+
+  useEffect(
+    ()=>{
+      console.log(data)
+    },[data]
+  )
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex justify-center items-center z-50">
@@ -21,10 +66,13 @@ const LoginPopUp = ({ setShowLogin }) => {
         </h2>
 
         {/* Form */}
-        <form className="flex flex-col gap-4">
+        <form onSubmit={onLogin} className="flex flex-col gap-4">
           {currState !== "login" && (
             <input
               type="text"
+              name="name"
+              value={data.name}
+              onChange={onChangeHandler}
               placeholder="Your Name"
               required
               className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -33,6 +81,9 @@ const LoginPopUp = ({ setShowLogin }) => {
 
           <input
             type="email"
+            name="email"
+            value={data.email}
+            onChange={onChangeHandler}
             placeholder="Your Email"
             required
             className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
@@ -40,6 +91,9 @@ const LoginPopUp = ({ setShowLogin }) => {
 
           <input
             type="password"
+            name="password"
+            value={data.password}
+            onChange={onChangeHandler}
             placeholder="Your Password"
             required
             className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"

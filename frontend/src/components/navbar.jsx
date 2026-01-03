@@ -3,92 +3,108 @@ import { assets } from "../assets/assets";
 import { Link } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 
-const Navbar = ({setShowLogin}) => {
+const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
+  const [showProfile, setShowProfile] = useState(false);
 
-  const {getTotalCartAmount} = useContext(StoreContext)
+  const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
+
+  const logout = () => {
+    
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
+  };
 
   return (
-    <nav className="px-10 py-6 flex justify-between items-center shadow-sm bg-white">
+    <nav className="sticky top-0 z-40 px-10 py-5 flex justify-between items-center bg-white shadow-md">
+      
       {/* Logo */}
       <Link to="/">
         <img className="w-[150px]" src={assets.logo} alt="Logo" />
       </Link>
 
-      {/* Menu Links */}
-      <ul className="flex gap-8 list-none text-[#49557e] text-[18px]">
-        <Link to='/'
-          
-          onClick={() => setMenu("home")}
-          className={`cursor-pointer transition duration-300 ${
-            menu === "home"
-              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
-              : "hover:underline hover:decoration-[tomato]"
-          }`}
-        >
-          Home
-        </Link>
-
-        <a href="#explere-menu"
-          onClick={() => setMenu("menu")}
-          className={`cursor-pointer transition duration-300 ${
-            menu === "menu"
-              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
-              : "hover:underline hover:decoration-[tomato]"
-          }`}
-        >
-          Menu
-        </a>
-
-        <a href="#App-download"
-          onClick={() => setMenu("mobile-app")}
-          className={`cursor-pointer transition duration-300 ${
-            menu === "mobile-app"
-              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
-              : "hover:underline hover:decoration-[tomato]"
-          }`}
-        >
-          Mobile App
-        </a>
-
-        <a href="#Footer"
-          onClick={() => setMenu("contact-us")}
-          className={`cursor-pointer transition duration-300 ${
-            menu === "contact-us"
-              ? "underline underline-offset-4 decoration-[tomato] font-semibold"
-              : "hover:underline hover:decoration-[tomato]"
-          }`}
-        >
-          Contact Us
-        </a>
+      {/* Menu */}
+      <ul className="flex gap-8 text-[#49557e] text-[18px] font-medium">
+        {["home", "menu", "mobile-app", "contact-us"].map((item) => (
+          <li
+            key={item}
+            onClick={() => setMenu(item)}
+            className={`cursor-pointer transition-all duration-300 ${
+              menu === item
+                ? "underline underline-offset-4 decoration-[tomato] text-black"
+                : "hover:underline hover:decoration-[tomato]"
+            }`}
+          >
+            {item === "home" && <Link to="/">Home</Link>}
+            {item === "menu" && <a href="#explore-menu">Menu</a>}
+            {item === "mobile-app" && <a href="#App-download">Mobile App</a>}
+            {item === "contact-us" && <a href="#Footer">Contact Us</a>}
+          </li>
+        ))}
       </ul>
 
       {/* Right Section */}
-      <div className="flex gap-6 items-center relative">
-        {/* Search Icon */}
+      <div className="flex items-center gap-6 relative">
+        
+        {/* Search */}
         <img
           src={assets.search_icon}
-          alt="Search"
-          className="w-6 h-6 cursor-pointer hover:scale-110 transition duration-200"
+          alt="search"
+          className="w-6 cursor-pointer hover:scale-110 transition"
         />
 
-        {/* Basket Icon with Badge */}
+        {/* Cart */}
         <div className="relative">
           <Link to="/cart">
             <img
               src={assets.basket_icon}
-              alt="Basket"
-              className="w-6 h-6 cursor-pointer hover:scale-110 transition duration-200"
+              alt="cart"
+              className="w-6 cursor-pointer hover:scale-110 transition"
             />
           </Link>
-          {getTotalCartAmount()>2?<span className="absolute -top-1 -right-1 bg-[tomato] w-[10px] h-[10px] rounded-full"></span>:<></>}
-          
+          {getTotalCartAmount() > 0 && (
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[tomato] rounded-full"></span>
+          )}
         </div>
 
-        {/* Sign In Button */}
-        <button onClick={()=>setShowLogin(true )} className="text-base border border-[#ff6347] rounded-[50px] cursor-pointer px-5 py-2 bg-transparent hover:bg-[#ff6347] hover:text-white transition duration-300">
-          Sign In
-        </button>
+        {/* Auth */}
+        {!token ? (
+          <button
+            onClick={() => setShowLogin(true)}
+            className="px-6 py-2 border border-[#ff6347] rounded-full text-[#ff6347]
+                       hover:bg-[#ff6347] hover:text-white transition-all duration-300"
+          >
+            Sign In
+          </button>
+        ) : (
+          <div className="relative">
+            <img
+              src={assets.profile_icon}
+              alt="profile"
+              className="w-5 cursor-pointer"
+              onClick={() => setShowProfile(!showProfile)}
+            />
+
+            {/* Dropdown */}
+            {showProfile && (
+              <ul className="absolute right-0 mt-3 w-40 bg-white rounded-xl shadow-lg border text-sm overflow-hidden">
+                <li className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                  <img src={assets.bag_icon} className="w-4" alt="" />
+                  <p>Orders</p>
+                </li>
+                <hr />
+                <li
+                  onClick={logout}
+                  className="flex items-center gap-3 px-4 py-3 hover:bg-red-50 text-red-500 cursor-pointer"
+                >
+                  <img src={assets.logout_icon} className="w-4" alt="" />
+                  <p>Logout</p>
+                </li>
+              </ul>
+            )}
+          </div>
+        )}
       </div>
     </nav>
   );
