@@ -8,9 +8,9 @@ const Footer = () => {
         
         {/* 1️⃣ Brand Section */}
         <div>
-          <h1 className="text-[2rem] font-extrabold text-[tomato] mb-3">Tomato</h1>
+          <h1 className="text-[2rem] font-extrabold text-[tomato] mb-3">ZestyGo</h1>
           <p className="text-gray-400 text-sm leading-relaxed max-w-[320px]">
-            Your favorite meals delivered fresh and fast. Explore a world of flavors with Tomato —
+            Your favorite meals delivered fresh and fast. Explore a world of flavors with ZestyGo —
             where every bite is made with love and quality ingredients.
           </p>
         </div>
@@ -37,7 +37,7 @@ const Footer = () => {
             📞 <span className="text-gray-400">+91 98765 43210</span>
           </p>
           <p className="text-gray-300 text-sm">
-            📧 <span className="text-gray-400">support@tomato.com</span>
+            📧 <span className="text-gray-400">support@zestygo.com</span>
           </p>
         </div>
 
@@ -68,7 +68,7 @@ const Footer = () => {
 
       {/* 5️⃣ Footer Bottom Line */}
       <div className="text-center text-gray-500 text-sm mt-10 border-t border-gray-700 pt-4">
-        © {new Date().getFullYear()} <span className="text-[tomato] font-semibold">Tomato</span>. All rights reserved.
+        © {new Date().getFullYear()} <span className="text-[tomato] font-semibold">ZestyGo</span>. All rights reserved.
       </div>
     </footer>
   );

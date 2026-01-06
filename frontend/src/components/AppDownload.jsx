@@ -6,7 +6,7 @@ const AppDownload = () => {
     <div className="bg-gradient-to-b from-[#fff5f0] to-white py-[6vw] text-center mt-[4vw] rounded-3xl shadow-md" id="App-download">
       {/* Title */}
       <h2 className="text-2xl md:text-3xl font-semibold text-[#2c2c2c] mb-4">
-        For a Better Experience, Download <span className="text-[tomato] font-bold">Tomato</span> App
+        For a Better Experience, Download <span className="text-[tomato] font-bold">ZestyGo</span> App
       </h2>
 
       {/* Subtitle */}

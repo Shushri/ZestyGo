@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { food_list } from "../assets/assets";
+import axios from "axios"; // HTTP client for API calls
 
 // Create global store context
 export const StoreContext = createContext(null);
@@ -8,15 +8,25 @@ const StoreContextProvider = (props) => {
   // Stores cart items as { itemId: quantity }
   const [cartItems, setCartItems] = useState({});
 
-  const [token,setToken] = useState("");
+  // Stores food list fetched from backend
+  const [food_list, setFood_list] = useState([]);
 
-  const url="http://localhost:4000"
+  // Stores authentication token
+  const [token, setToken] = useState("");
 
-  useEffect(()=>{
-      if(localStorage.getItem("token")){
-        setToken(localStorage.getItem("token"))
+  // Backend base URL
+  const url = "http://localhost:4000";
+
+  // Load food list and token on initial render
+  useEffect(() => {
+    async function loadData() {
+      await fetchFoodList(); // Fetch food items from backend
+      if (localStorage.getItem("token")) {
+        setToken(localStorage.getItem("token")); // Restore token from localStorage
       }
-  },[])
+    }
+    loadData();
+  }, []);
 
   // Add item to cart or increase quantity
   const addToCart = (itemId) => {
@@ -29,7 +39,7 @@ const StoreContextProvider = (props) => {
   // Remove item from cart or decrease quantity
   const removeFromCart = (itemId) => {
     setCartItems((prev) => {
-      if (!prev[itemId]) return prev;       // If item not in cart, do nothing
+      if (!prev[itemId]) return prev; // If item not in cart, do nothing
       const updated = { ...prev };
       updated[itemId] -= 1;
       if (updated[itemId] <= 0) delete updated[itemId]; // Remove item if quantity is zero
@@ -51,21 +61,27 @@ const StoreContextProvider = (props) => {
     return totalAmount;
   };
 
+  // Fetch food items from backend API
+  const fetchFoodList = async () => {
+    const response = await axios.get(url + "/api/food/list");
+    setFood_list(response.data.data);
+  };
+
   // Values shared across the app
   const contextValue = {
-    food_list,              // Available food items
-    cartItems,              // Cart state
-    addToCart,              // Add item function
-    removeFromCart,         // Remove item function
-    getTotalCartAmount,     // Cart total calculator
-    url,
-    token,
-    setToken
+    food_list,          // Available food items
+    cartItems,          // Cart state
+    addToCart,          // Add item function
+    removeFromCart,     // Remove item function
+    getTotalCartAmount, // Cart total calculator
+    url,                // Backend URL
+    token,              // Auth token
+    setToken,           // Update token
   };
 
   return (
     <StoreContext.Provider value={contextValue}>
-      {props.children}      {/* Wraps entire app */}
+      {props.children}   {/* Wraps entire application */}
     </StoreContext.Provider>
   );
 };

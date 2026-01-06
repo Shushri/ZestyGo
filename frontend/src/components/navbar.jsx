@@ -21,7 +21,11 @@ const Navbar = ({ setShowLogin }) => {
       
       {/* Logo */}
       <Link to="/">
-        <img className="w-[150px]" src={assets.logo} alt="Logo" />
+        <p className="text-[#ff6347] text-3xl font-semibold">
+  ZestyGo
+</p>
+
+
       </Link>
 
       {/* Menu */}
