@@ -23,21 +23,25 @@ const StoreContextProvider = (props) => {
       await fetchFoodList(); // Fetch food items from backend
       if (localStorage.getItem("token")) {
         setToken(localStorage.getItem("token")); // Restore token from localStorage
+        await loadCartData(localStorage.getItem("token"));
       }
     }
     loadData();
   }, []);
 
   // Add item to cart or increase quantity
-  const addToCart = (itemId) => {
+  const addToCart = async(itemId) => {
     setCartItems((prev) => ({
       ...prev,
       [itemId]: (prev[itemId] || 0) + 1,
     }));
+    if(token){
+      await axios.post(`${url}/api/cart/add`,{itemId},{headers:{token}})
+    }
   };
 
   // Remove item from cart or decrease quantity
-  const removeFromCart = (itemId) => {
+  const removeFromCart = async(itemId) => {
     setCartItems((prev) => {
       if (!prev[itemId]) return prev; // If item not in cart, do nothing
       const updated = { ...prev };
@@ -45,6 +49,9 @@ const StoreContextProvider = (props) => {
       if (updated[itemId] <= 0) delete updated[itemId]; // Remove item if quantity is zero
       return updated;
     });
+    if(token){
+      await axios.post(`${url}/api/cart/remove`,{itemId},{headers:{token}})
+    }
   };
 
   // Calculate total cart price
@@ -66,6 +73,12 @@ const StoreContextProvider = (props) => {
     const response = await axios.get(url + "/api/food/list");
     setFood_list(response.data.data);
   };
+
+  //to save the cart for a particular user even if the page is refreshed
+  const loadCartData = async(token) => {
+    const response = await axios.post(`${url}/api/cart/get`,{},{headers:{token}})
+    setCartItems(response.data.cartData);
+  }
 
   // Values shared across the app
   const contextValue = {
