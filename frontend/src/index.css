@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 🌍 Global Reset & Defaults */
+/*  Global Reset & Defaults */
 * {
   margin: 0;
   padding: 0;
@@ -10,7 +10,7 @@
   scroll-behavior: smooth;
 }
 
-/* 🧱 Body Styling */
+/*  Body Styling */
 body {
   min-height: 100vh;
   font-family: 'Inter', 'Poppins', sans-serif;
@@ -20,7 +20,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* 🧭 Link Styling */
+/*  Link Styling */
 a {
   text-decoration: none;
   color: inherit;
@@ -31,7 +31,7 @@ a:hover {
   color: tomato;
 }
 
-/* 🧩 App Container */
+/*  App Container */
 .app {
   width: 85%;
   max-width: 1300px;
@@ -39,7 +39,7 @@ a:hover {
   padding: 20px 0;
 }
 
-/* 🎡 Hide scrollbar but allow scroll */
+/*  Hide scrollbar but allow scroll */
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
@@ -49,7 +49,7 @@ a:hover {
   scrollbar-width: none; /* Firefox */
 }
 
-/* ✨ Optional (nice scroll feel when visible elsewhere) */
+/*  Optional (nice scroll feel when visible elsewhere) */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;

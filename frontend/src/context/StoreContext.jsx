@@ -56,17 +56,21 @@ const StoreContextProvider = (props) => {
 
   // Calculate total cart price
   const getTotalCartAmount = () => {
-    let totalAmount = 0;
-    for (const item in cartItems) {
-      if (cartItems[item] > 0) {
-        const itemInfo = food_list.find(
-          (product) => item === product._id
-        );
-        totalAmount += itemInfo.price * cartItems[item];
-      }
-    }
-    return totalAmount;
-  };
+  let totalAmount = 0;
+
+  for (const item in cartItems) {
+    const itemInfo = food_list.find(
+      (product) => product._id === item
+    );
+
+    // If food not loaded yet or item missing, skip
+    if (!itemInfo) continue;
+
+    totalAmount += itemInfo.price * cartItems[item];
+  }
+
+  return totalAmount;
+};
 
   // Fetch food items from backend API
   const fetchFoodList = async () => {

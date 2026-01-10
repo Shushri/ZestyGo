@@ -7,6 +7,8 @@ import PlaceOrder from "./pages/PlaceOrder";                  // Order placement
 import Footer from "./components/Footer";                     // Footer component
 import LoginPopUp from "./components/LoginPopUp";             // Login modal component
 import ScrollToTop from "./components/ScrollToTop";           // Scrolls page to top on route change
+import Verify from "./pages/Verify";
+import MyOrders from "./pages/MyOrders";
 
 const App = () => {
   // Controls visibility of login popup
@@ -26,6 +28,8 @@ const App = () => {
           <Route path="/" element={<Home />} />                {/* Home route */}
           <Route path="/cart" element={<Cart />} />            {/* Cart route */}
           <Route path="/order" element={<PlaceOrder />} />     {/* Order route */}
+          <Route path="/verify" element={<Verify />} />
+          <Route path="/myorders" element={<MyOrders />} />
         </Routes>
       </div>
 

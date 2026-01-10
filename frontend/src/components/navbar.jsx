@@ -1,12 +1,12 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { StoreContext } from "../context/StoreContext";
 
 const Navbar = ({ setShowLogin }) => {
   const [menu, setMenu] = useState("home");
   const [showProfile, setShowProfile] = useState(false);
-
+  const navigate = useNavigate();
   const { getTotalCartAmount, token, setToken } = useContext(StoreContext);
 
   const logout = () => {
@@ -93,9 +93,9 @@ const Navbar = ({ setShowLogin }) => {
             {/* Dropdown */}
             {showProfile && (
               <ul className="absolute right-0 mt-3 w-40 bg-white rounded-xl shadow-lg border text-sm overflow-hidden">
-                <li className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer">
+                <li onClick={()=>navigate('/myorders')} className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer">
                   <img src={assets.bag_icon} className="w-4" alt="" />
-                  <p>Orders</p>
+                  <p >Orders</p>
                 </li>
                 <hr />
                 <li
