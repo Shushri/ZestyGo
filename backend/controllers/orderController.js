@@ -70,3 +70,23 @@ export const userOrders = async(req,res)=>{
     res.json({success:false, message:"Error"});
   }
 }
+
+export const listOrders = async(req,res) => {
+    try {
+      const orders = await orderModel.find({});
+    res.json({success:true, data:orders})
+    } catch (error) {
+      console.log("Error")
+    res.json({success:false, message:"Error"});
+    }
+}
+
+export const updateStatus = async (req, res) => {
+  try {
+    const { orderId, status } = req.body;
+    await orderModel.findByIdAndUpdate(orderId, { status });
+    res.json({ success: true });
+  } catch {
+    res.json({ success: false });
+  }
+};

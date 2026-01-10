@@ -61,7 +61,7 @@ const MyOrders = () => {
             </div>
 
             {/* Button */}
-            <button className="bg-red-50 text-red-500 px-4 py-2 rounded hover:bg-red-100 transition">
+            <button onClick={fetchOrders} className="bg-red-50 text-red-500 px-4 py-2 rounded hover:bg-red-100 transition">
               Track Order
             </button>
           </div>
