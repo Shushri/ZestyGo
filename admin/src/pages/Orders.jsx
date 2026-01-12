@@ -4,13 +4,15 @@ import { toast } from "react-toastify";
 import box from "../assets/parcel_icon.png";
 
 const Orders = ({ url }) => {
+  // Store all orders fetched from backend
   const [data, setData] = useState([]);
 
+  // Fetch all orders from backend
   const fetchAllOrders = async () => {
     try {
       const response = await axios.get(`${url}/api/order/list`);
       if (response.data.success) {
-        setData(response.data.data);
+        setData(response.data.data); // save orders in state
       } else {
         toast.error("Failed to fetch orders");
       }
@@ -19,7 +21,7 @@ const Orders = ({ url }) => {
     }
   };
 
-  // change order status
+  // Update order status when admin changes dropdown
   const updateStatus = async (orderId, newStatus) => {
     try {
       const response = await axios.post(`${url}/api/order/status`, {
@@ -29,7 +31,7 @@ const Orders = ({ url }) => {
 
       if (response.data.success) {
         toast.success("Order status updated");
-        fetchAllOrders();
+        fetchAllOrders(); // refresh orders after update
       } else {
         toast.error("Failed to update");
       }
@@ -38,6 +40,7 @@ const Orders = ({ url }) => {
     }
   };
 
+  // Load all orders when page loads
   useEffect(() => {
     fetchAllOrders();
   }, []);
@@ -55,13 +58,14 @@ const Orders = ({ url }) => {
         <p>Status</p>
       </div>
 
+      {/* Orders list */}
       <div className="space-y-3 mt-4">
         {data.map((order, index) => (
           <div
             key={index}
             className="grid grid-cols-5 bg-white p-4 rounded shadow-sm items-center"
           >
-            {/* Order */}
+            {/* Order ID and icon */}
             <div className="flex items-center gap-3">
               <img src={box} className="w-10" alt="" />
               <p className="font-medium text-sm">
@@ -69,22 +73,22 @@ const Orders = ({ url }) => {
               </p>
             </div>
 
-            {/* Items */}
+            {/* Items ordered */}
             <p className="text-sm text-gray-600 line-clamp-2">
               {order.items
                 .map((item) => `${item.name} x ${item.quantity}`)
                 .join(", ")}
             </p>
 
-            {/* Amount */}
+            {/* Order amount */}
             <p className="font-medium">₹{order.amount}</p>
 
-            {/* Payment */}
+            {/* Payment type */}
             <p className="text-sm text-gray-500">
               {order.payment ? "Paid" : "COD"}
             </p>
 
-            {/* Status dropdown */}
+            {/* Status dropdown controlled by admin */}
             <select
               value={order.status}
               onChange={(e) =>

@@ -7,11 +7,9 @@ const Navbar = () => {
       
       {/* Logo */}
       <div className="flex items-center gap-2">
-        <img
-          src={assets.logo}
-          alt="FoodDel logo"
-          className="h-9 w-auto object-contain"
-        />
+        <p className="text-[#ff6349] text-3xl font-semibold">
+              ZestyGo
+            </p>
         
       </div>
 

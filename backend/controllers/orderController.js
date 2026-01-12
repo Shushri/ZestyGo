@@ -14,7 +14,7 @@ export const placeOrder = async (req, res) => {
       items,
       amount,
       address,
-      status: "pending",
+      status: "food processing...",
     });
 
     const session = await stripe.checkout.sessions.create({
@@ -29,9 +29,10 @@ export const placeOrder = async (req, res) => {
       })),
       mode: "payment",
 
-      // 🔥 Redirect to Verify Page
-      success_url: `http://localhost:5173/verify?success=true&orderId=${newOrder._id}`,
-      cancel_url: `http://localhost:5173/verify?success=false&orderId=${newOrder._id}`,
+     
+      success_url: `http://localhost:5174/verify?orderId=${newOrder._id}&success=true`,
+      cancel_url: `http://localhost:5174/verify?orderId=${newOrder._id}&success=false`,
+
     });
 
     res.json({ success: true, session_url: session.url });
@@ -53,7 +54,7 @@ export const verifyOrder = async (req, res) => {
       res.json({ success: true });
     } else {
       await orderModel.findByIdAndDelete(orderId);
-      res.json({ success: false });
+      res.json({ success: false,message: "Payment Failed" });
     }
   } catch (error) {
     console.log(error);
