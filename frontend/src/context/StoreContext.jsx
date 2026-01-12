@@ -15,7 +15,7 @@ const StoreContextProvider = (props) => {
   const [token, setToken] = useState("");
 
   // Backend base URL
-  const url = "http://localhost:4000";
+  const url = "https://zestygo-p4xg.onrender.com/";
 
   // Load food list and token on initial render
   useEffect(() => {

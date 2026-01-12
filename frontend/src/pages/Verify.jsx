@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useContext } from "react";
+import { StoreContext } from "../context/StoreContext";
 
 const Verify = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const {url} = useContext(StoreContext);
 
   const success = searchParams.get("success");
   const orderId = searchParams.get("orderId");
@@ -14,7 +17,7 @@ const Verify = () => {
 
     const verify = async () => {
       try {
-        const res = await axios.post("http://localhost:4000/api/order/verify", {
+        const res = await axios.post(`${url}/api/order/verify`, {
           success,
           orderId,
         });
