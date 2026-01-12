@@ -55,7 +55,7 @@ const Cart = () => {
 
               {/* Item price */}
               <p className="text-gray-600 text-center md:text-left">
-                ${item.price.toFixed(2)}
+                ₹{item.price.toFixed(2)}
               </p>
 
               {/* Item quantity */}
@@ -65,7 +65,7 @@ const Cart = () => {
 
               {/* Total price for this item */}
               <p className="text-gray-800 font-semibold text-center md:text-left">
-                ${(item.price * cartItems[item._id]).toFixed(2)}
+                ₹{(item.price * cartItems[item._id]).toFixed(2)}
               </p>
 
               {/* Remove item button */}
@@ -97,17 +97,17 @@ const Cart = () => {
 
           <div className="flex justify-between mb-2">
             <p className="text-gray-700">Subtotal</p>
-            <p className="font-medium">${subtotal.toFixed(2)}</p>
+            <p className="font-medium">₹{subtotal.toFixed(2)}</p>
           </div>
 
           <div className="flex justify-between mb-2">
             <p className="text-gray-700">Delivery Charges</p>
-            <p className="font-medium">${deliveryCharges.toFixed(2)}</p>
+            <p className="font-medium">₹{deliveryCharges.toFixed(2)}</p>
           </div>
 
           <div className="flex justify-between mt-4 pt-2 border-t font-semibold text-gray-800 text-lg">
             <p>Total</p>
-            <p>${total.toFixed(2)}</p>
+            <p>₹{total.toFixed(2)}</p>
           </div>
 
           {/* Checkout button */}
