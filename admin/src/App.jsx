@@ -11,7 +11,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const App = () => {
-  const url="https://zestygo-p4xg.onrender.com/"
+  const url="https://zestygo-p4xg.onrender.com"
   return (
     <div className="min-h-screen flex flex-col">
       <ToastContainer/>
