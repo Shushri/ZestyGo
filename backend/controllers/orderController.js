@@ -5,6 +5,7 @@ import orderModel from "../models/orderModel.js";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const placeOrder = async (req, res) => {
+  frontend_url="https://zestygo-frontend.onrender.com";
   try {
     const userId = req.userId;
     const { items, amount, address } = req.body;
@@ -30,8 +31,8 @@ export const placeOrder = async (req, res) => {
       mode: "payment",
 
      
-      success_url: `http://localhost:5174/verify?orderId=${newOrder._id}&success=true`,
-      cancel_url: `http://localhost:5174/verify?orderId=${newOrder._id}&success=false`,
+      success_url: `${frontend_url}/verify?orderId=${newOrder._id}&success=true`,
+      cancel_url: `${frontend_url}/verify?orderId=${newOrder._id}&success=false`,
 
     });
 
