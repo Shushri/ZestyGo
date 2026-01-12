@@ -5,7 +5,7 @@ import orderModel from "../models/orderModel.js";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 export const placeOrder = async (req, res) => {
-  frontend_url="https://zestygo-frontend.onrender.com";
+  const frontend_url="https://zestygo-frontend.onrender.com";
   try {
     const userId = req.userId;
     const { items, amount, address } = req.body;
