@@ -20,7 +20,7 @@ The project is built with a modern frontend and a robust backend, designed for s
 ---
 
 ## Live Demo
-https://zestygo-frontend.onrender.com/
+https://zesty-go.vercel.app/
 
 ---
 
